@@ -143,7 +143,7 @@
                 <a href="images/my-cv.pdf" download class="btn btn2">Download CV</a>
             </div>
             <div class="contact-right">
-                <form>
+                <form id="contact-form">
                     <input type="text" name="Name" placeholder="Your Name" required>
                     <input type="email" name="Email" placeholder="Your email" required>
                     <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
@@ -172,6 +172,35 @@
         event.currentTarget.classList.add("active-link");
         document.getElementById(tabname).classList.add("active-tab");
      }
+</script>
+<script>
+
+const scriptURL = "https://script.google.com/macros/s/AKfycby8RvGP1D4jmHFyHdHw222zuCplmmtwt_sIhuldo1inISupkPRxIJ84zfEijM46ymJaRg/exec";
+
+const form = document.getElementById("contact-form");
+
+form.addEventListener("submit", e => {
+
+    e.preventDefault();
+
+    fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify({
+            Name: form.Name.value,
+            Email: form.Email.value,
+            Message: form.Message.value
+        })
+    })
+
+    .then(response => {
+        alert("Message sent successfully!");
+        form.reset();
+    })
+
+    .catch(error => console.error("Error!", error.message));
+
+});
+
 </script>
 </body>
 </html>
